@@ -11,6 +11,7 @@ import { ImageService } from './services/image.service';
 import { ImageDetailComponent } from './gallery/image-detail/image-detail.component';
 import { ContactComponent } from './contact/contact.component';
 import { AboutComponent } from './about/about.component';
+import {HttpClientModule} from '@angular/common/http';
 
 import {routes} from './app.routes';
 
@@ -27,7 +28,8 @@ import {routes} from './app.routes';
   ],
   imports: [
     routes,
-    BrowserModule
+    BrowserModule,
+    HttpClientModule,
   ],
   providers: [ImageService],
   bootstrap: [AppComponent]
