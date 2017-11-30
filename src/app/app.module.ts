@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar.component';
@@ -14,6 +14,22 @@ import { AboutComponent } from './about/about.component';
 import {HttpClientModule} from '@angular/common/http';
 
 import {routes} from './app.routes';
+import { AdminComponent } from './admin/admin.component';
+import { AdminImageListComponent } from './admin/admin-image-list/admin-image-list.component';
+import { DashboardComponent } from './admin/dashboard.component';
+import { AdminImageCreateComponent } from './admin/admin-image-create/admin-image-create.component';
+import { AdminImageEditComponent } from './admin/admin-image-edit/admin-image-edit.component';
+import { AdminImageDeleteComponent } from './admin/admin-image-delete/admin-image-delete.component';
+import { AdminUserCreateComponent } from './admin/admin-user-create/admin-user-create.component';
+import {UserService} from './services/user.service';
+import { AdminUserListComponent } from './admin/admin-user-list/admin-user-list.component';
+import { RegisterComponent } from './register/register.component';
+import {AuthService} from './services/auth.service';
+import { LoginComponent } from './login/login.component';
+import {AuthGuardService} from './services/auth-guard.service';
+import { LogoutComponent } from './logout/logout.component';
+import { JwtModule } from '@auth0/angular-jwt';
+import { DropdownDirective } from './directives/dropdown.directive';
 
 @NgModule({
   declarations: [
@@ -24,14 +40,36 @@ import {routes} from './app.routes';
     ImageComponent,
     ImageDetailComponent,
     ContactComponent,
-    AboutComponent
+    AboutComponent,
+    AdminComponent,
+    AdminImageListComponent,
+    DashboardComponent,
+    AdminImageCreateComponent,
+    AdminImageEditComponent,
+    AdminImageDeleteComponent,
+    AdminUserCreateComponent,
+    AdminUserListComponent,
+    RegisterComponent,
+    LoginComponent,
+    LogoutComponent,
+    DropdownDirective
   ],
   imports: [
     routes,
     BrowserModule,
     HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: () => {
+          return localStorage.getItem('token');
+        },
+        whitelistedDomains: ['localhost:4200', 'angularbook.app']
+      }
+    })
   ],
-  providers: [ImageService],
+  providers: [ImageService, UserService, AuthService, AuthGuardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
